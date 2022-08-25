@@ -6,7 +6,8 @@ inputs:
     required: true
     description: Handlebar template to use.
 outputs:
-    payload: ${{ steps.compile.outputs.payload }}
+    payload: 
+      description: The rendered template.
 runs:
   using: 'node16'
   main: 'main.js'

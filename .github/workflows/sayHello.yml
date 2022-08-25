@@ -1,0 +1,16 @@
+name: Say Hello
+on:
+  workflow_dispatch:
+jobs:
+  check-perms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+      - name: install dependencies
+        run: |
+          npm install
+      - uses: ./
+        with:
+          template: Whats up {{ name }}?
+          name: Mona

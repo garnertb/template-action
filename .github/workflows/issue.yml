@@ -1,0 +1,24 @@
+name: 'say hello'
+on:
+  workflow_dispatch:
+jobs:
+  check-perms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+      - name: install dependencies
+        run: |
+          npm install
+      - uses: ./
+        with:
+          inputs: "fromJson([{\"description\": \"testing\", \"required\": "true"}])" 
+          template: |
+          yaml
+            with: 
+            {{#each inputs}} 
+              {{#if description}}{{#paragraphSplit description}}{{/paragraphSplit}} {{/if}}{{"\n"}}
+              # Required: {{required}}{{"\n"}}
+              {{#if default~}}# Default: "{{default}}" {{/if }}
+              - {{@key}}: ''
+            {{/each}}

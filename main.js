@@ -12,6 +12,7 @@ async function main() {
   core.debug('inputs', JSON.stringify(inputs,undefined,2));
   const result = compiledTemplate(inputs)
   core.debug(`compliled results: ${result}`)
+  core.setOutput('payload', result)
   return result;
 }
 
