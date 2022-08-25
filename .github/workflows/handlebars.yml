@@ -1,4 +1,4 @@
-name: 'say hellow'
+name: 'say hello'
 on: # rebuild any PRs and main branch changes
   workflow_dispatch:
 jobs:
