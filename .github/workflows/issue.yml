@@ -10,9 +10,31 @@ jobs:
       - name: install dependencies
         run: |
           npm install
+      - uses: octokit/request-action@v2.x
+        id: open-pull-requests
+        with:
+          route: /repos/:owner/:repo/pulls
+          owner: garnertb
+          repo: handlebar-action
       - uses: ./
         with:
-          inputs: ${{ fromJSON('{"required":false}') }}
-          template: |
-            <h1>required: {{required}}</h1> 
-            <p>{{description}}</p>
+          prs: ${{ steps.open-pull-requests.outputs.data }}
+          description: ''
+          template: |- 
+            ## Weekly Sync {{ date}}
+            
+            <!-- Items actively working or blocked -->
+            ### In Progress
+
+            ### PRs Needing Review
+            {{ #each prs }}
+              - [{{ pr.title }}]({{ pr.html_url }})
+            {{ /each }}
+            ### Security
+            <!-- Security-related Issues/PRS -->
+
+            ### Expenses
+            <!-- Image from AWS Cost Explorer -->
+
+            ### Deployments
+            
