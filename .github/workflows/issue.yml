@@ -1,8 +1,8 @@
-name: 'Create Docs'
+name: 'Create Issue'
 on:
   workflow_dispatch:
 jobs:
-  check-perms:
+  create-issue:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -11,30 +11,30 @@ jobs:
         run: |
           npm install
       - uses: octokit/request-action@v2.x
-        id: open-pull-requests
+        id: open-issues
         with:
-          route: /repos/:owner/:repo/pulls
+          route: /repos/:owner/:repo/issues
           owner: garnertb
-          repo: handlebar-action
+          repo: handlebars-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }} 
       - uses: ./
+        id: issue-body
         with:
-          prs: ${{ steps.open-pull-requests.outputs.data }}
+          issues: ${{ steps.open-issues.outputs.data }}
           description: ''
-          template: |- 
-            ## Weekly Sync {{ date}}
-            
-            <!-- Items actively working or blocked -->
-            ### In Progress
+          template: |
+            ## Open issues
+            |Issue|Title|
+            |-----|-----|
+            {{#each issues }}
+            {{#withinAWeek this.updated_at}}
+            |{{ this.number }}|[{{ this.title }}]({{this.html_url}})|
+            {{/withinAWeek}}
+            {{/each }}
+      - uses: imjohnbo/issue-bot@v3
+        with:
+          body: ${{ steps.issue-body.outputs.payload }}
+          title: Weekly issue
 
-            ### PRs Needing Review
-            {{ #each prs }}
-              - [{{ pr.title }}]({{ pr.html_url }})
-            {{ /each }}
-            ### Security
-            <!-- Security-related Issues/PRS -->
-
-            ### Expenses
-            <!-- Image from AWS Cost Explorer -->
-
-            ### Deployments
-            
+          
