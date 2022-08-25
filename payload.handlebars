@@ -1,0 +1,9 @@
+yaml
+  - uses: {{name}}
+  with: 
+  {{#each inputs}} 
+    {{#if description}}{{#paragraphSplit description}}{{/paragraphSplit}} {{/if}}{{"\n"}}
+    # Required: {{required}}{{"\n"}}
+    {{#if default~}}# Default: "{{default}}" {{/if }}
+    - {{@key}}: ''
+  {{/each}}

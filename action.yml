@@ -1,0 +1,17 @@
+name: 'Handlebars action'
+description: 'Compiles and renders payloads from Handlebar templates.'
+author: 'Tyler Garner'
+inputs:
+  template:
+    required: true
+    description: Handlebar template to use.
+outputs:
+      output1: ${{ steps.compile.outputs.payload }}
+runs:
+  using: 'node16'
+  main: 'main.js'
+  with: 
+    name: Test
+    template: |
+      Hello ${{ name }}
+    
