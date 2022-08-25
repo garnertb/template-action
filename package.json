@@ -1,0 +1,17 @@
+{
+  "name": "action-docs",
+  "version": "1.0.0",
+  "description": "const fs = require('fs').promises; const jsyaml = require('js-yaml'); const handlebars = require('handlebars'); const path = require('path');",
+  "main": "readme.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.9.1",
+    "handlebars": "^4.7.7",
+    "js-yaml": "^4.1.0"
+  }
+}
