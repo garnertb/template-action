@@ -20,6 +20,7 @@ function getAllInputs() {
   return Object.entries(process.env).reduce((result, [key, value]) => {
     if (!/^INPUT_/.test(key)) return result;
     const inputName = key.substr("INPUT_".length).toLowerCase();
+    core.debug(`reading input key: ${key}, value: ${value}`);
     result[inputName] = yaml.load(value);
 
     return result;

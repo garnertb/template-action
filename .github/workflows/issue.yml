@@ -12,7 +12,7 @@ jobs:
           npm install
       - uses: ./
         with:
-          inputs: ${{ fromJSON({"required":false}) }}
+          inputs: ${{ fromJSON('{"required":false}') }}
           template: |
             <h1>required: {{required}}</h1> 
             <p>{{description}}</p>
