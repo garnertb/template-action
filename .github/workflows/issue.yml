@@ -1,4 +1,4 @@
-name: 'say hello'
+name: 'Create Docs'
 on:
   workflow_dispatch:
 jobs:
@@ -12,13 +12,7 @@ jobs:
           npm install
       - uses: ./
         with:
-          inputs: "fromJson([{\"description\": \"testing\", \"required\": "true"}])" 
+          inputs: ${{ fromJSON({"required":false}) }}
           template: |
-          yaml
-            with: 
-            {{#each inputs}} 
-              {{#if description}}{{#paragraphSplit description}}{{/paragraphSplit}} {{/if}}{{"\n"}}
-              # Required: {{required}}{{"\n"}}
-              {{#if default~}}# Default: "{{default}}" {{/if }}
-              - {{@key}}: ''
-            {{/each}}
+            <h1>required: {{required}}</h1> 
+            <p>{{description}}</p>
