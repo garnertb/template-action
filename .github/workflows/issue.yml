@@ -32,6 +32,6 @@ jobs:
       - uses: imjohnbo/issue-bot@v3
         with:
           body: ${{ steps.issue-body.outputs.payload }}
-          title: Weekly issue
+          title: Issues from this week
 
           
