@@ -25,11 +25,9 @@ jobs:
           description: ''
           template: |
             ## Open issues
-            |Issue|Title|
-            |-----|-----|
             {{#each issues }}
             {{#withinAWeek this.updated_at}}
-            |{{ this.number }}|[{{ this.title }}]({{this.html_url}})|
+            - [ ] #{{this.number}}
             {{/withinAWeek}}
             {{/each }}
       - uses: imjohnbo/issue-bot@v3
