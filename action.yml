@@ -1,10 +1,10 @@
-name: 'Handlebars action'
+name: 'Template action'
 description: 'Compiles and renders payloads from Handlebar templates.'
 author: 'Tyler Garner'
 inputs:
   template:
     required: true
-    description: Handlebar template to use.
+    description: Handlebar template.
 outputs:
     payload: 
       description: The rendered template.

@@ -1,6 +1,6 @@
 # template-action
 
-Action that enables arbitrary template rendering in GitHub actions
+Action that uses [handlebars](https://handlebarsjs.com/) to render arbitrary template payloads.  
 
 ## Usage
 
