@@ -1,5 +1,4 @@
 
-const fs = require('fs').promises;
 const handlebars = require('handlebars');
 const core = require('@actions/core');
 const yaml = require("js-yaml"); 
