@@ -13,7 +13,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: open-issues
         with:
-          route: /repos/:owner/:repo/issues
+          route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
           owner: garnertb
           repo: handlebars-action
         env:
@@ -22,7 +22,6 @@ jobs:
         id: issue-body
         with:
           issues: ${{ steps.open-issues.outputs.data }}
-          description: ''
           template: |
             ## Open issues
             {{#each issues }}
