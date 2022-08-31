@@ -20,7 +20,7 @@ with:
 
 ### More complex example
 
-This example creates a summary issue with all issues created in the last week.
+This example creates a summary issue with all issues updated in the last week.
 
 ```yaml
 # Query recently updated issues
@@ -52,3 +52,7 @@ This example creates a summary issue with all issues created in the last week.
     body: ${{ steps.issue-body.outputs.payload }}
     title: Issues from this week
 ```
+
+Generated issue:
+
+![issue image](images/issue.jpg)
