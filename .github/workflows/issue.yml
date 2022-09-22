@@ -16,20 +16,23 @@ jobs:
       - name: install dependencies
         run: |
           npm install
+      - name: get repository
+        run: |
+         echo ::set-output name=repository::$(cut -d'/' -f2 <<<"$GITHUB_REPOSITORY")
       
       - uses: octokit/request-action@v2.x
         id: open-issues
         with:
           route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
-          owner: garnertb
-          repo: handlebars-action
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.get-repository.outputs.repository }}
       
       - uses: octokit/request-action@v2.x
         id: open-prs
         with:
-          route: /repos/{owner}/{repo}/pulls
-          owner: garnertb
-          repo: handlebars-action
+          route: /repos/{owner}/{repo}/pulls&per_page=100&state=all
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.get-repository.outputs.repository }}
       
       - uses: ./
         id: issue-body
@@ -65,6 +68,6 @@ jobs:
         with:
           route: POST /repos/{owner}/{repo}/issues/{issue_number}/comments
           owner: ${{ github.repository_owner }}
-          repo: template-action
+          repo: ${{ steps.get-repository.outputs.repository }}
           issue_number: ${{ github.event.issue.number }}
           body: ${{ toJSON(steps.issue-body.outputs.payload) }}
