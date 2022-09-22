@@ -16,7 +16,9 @@ jobs:
       - name: install dependencies
         run: |
           npm install
-      - name: get-repository
+      
+      - name: get repository
+        id: get-repository
         run: |
          echo ::set-output name=repository::$(cut -d'/' -f2 <<<"$GITHUB_REPOSITORY")
       
