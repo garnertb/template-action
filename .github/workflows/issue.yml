@@ -41,4 +41,4 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: template-action
           issue_number: ${{ github.event.issue.number }}
-          body: ${{ steps.issue-body.outputs.body }}
+          body: ${{ steps.issue-body.outputs.payload }}
