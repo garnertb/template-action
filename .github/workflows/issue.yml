@@ -13,6 +13,7 @@ jobs:
       - name: install dependencies
         run: |
           npm install
+      
       - uses: octokit/request-action@v2.x
         id: open-issues
         with:
@@ -22,10 +23,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.token }} 
       
+      - uses: octokit/request-action@v2.x
+        id: open-prs
+        with:
+          route: /repos/{owner}/{repo}/pulls
+          owner: garnertb
+          repo: handlebars-action
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }} 
+      
       - uses: ./
         id: issue-body
         with:
           issues: ${{ steps.open-issues.outputs.data }}
+          prs: ${{ steps.open-prs.outputs.data }}
           template: |
             ## Open issues
             {{#if issues}}
@@ -36,6 +47,15 @@ jobs:
               {{/each }}
             {{else}}
               No recent issues
+            {{/if}}
+            {{#if prs}}
+              {{#each pr }}
+              {{#withinAWeek this.updated_at}}
+              - [ ] #{{this.number}}
+              {{/withinAWeek}}
+              {{/each }}
+            {{else}}
+              No recent prs
             {{/if}}
       
       - uses: octokit/request-action@v2.x
