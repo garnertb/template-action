@@ -34,7 +34,7 @@ jobs:
         name: Retrieve open pull requests
         id: open-prs
         with:
-          route: /repos/{owner}/{repo}/pulls&per_page=100&state=all
+          route: /repos/{owner}/{repo}/pulls?sort=updated&per_page=100&state=all
           owner: ${{ github.repository_owner }}
           repo: ${{ steps.get-repository.outputs.repository }}
       
