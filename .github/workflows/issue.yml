@@ -46,7 +46,7 @@ jobs:
               {{/withinAWeek}}
               {{/each }}
             {{else}}
-              No recent issues
+              No recent issues 🎉
             {{/if}}
             <br/>
             ## Recent PRs<br/>
@@ -57,7 +57,7 @@ jobs:
               {{/withinAWeek}}
               {{/each }}
             {{else}}
-              No recent prs
+              No recent prs 🤔
             {{/if}}
       
       - uses: octokit/request-action@v2.x
