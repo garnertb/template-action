@@ -28,11 +28,15 @@ jobs:
           issues: ${{ steps.open-issues.outputs.data }}
           template: |
             ## Open issues
-            {{#each issues }}
-            {{#withinAWeek this.updated_at}}
-            - [ ] #{{this.number}}
-            {{/withinAWeek}}
-            {{/each }}
+            {{#if issues}}
+              {{#each issues }}
+              {{#withinAWeek this.updated_at}}
+              - [ ] #{{this.number}}
+              {{/withinAWeek}}
+              {{/each }}
+            {{else}}
+              No recent issues
+            {{/if}}
       
       - uses: octokit/request-action@v2.x
         id: comment
