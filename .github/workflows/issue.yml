@@ -49,7 +49,7 @@ jobs:
               No recent issues
             {{/if}}
             <br/>
-            ## Recent PRs
+            ## Recent PRs<br/>
             {{#if prs}}
               {{#each pr }}
               {{#withinAWeek this.updated_at}}
