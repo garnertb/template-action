@@ -4,7 +4,6 @@ on:
   issue_comment:
     types: [created]
 jobs:
-  if: startsWith(github.event.comment.body, '/getRecentIssues')
   create-issue:
     if: startsWith(github.event.comment.body, '/getRecentIssues')
     runs-on: ubuntu-latest
