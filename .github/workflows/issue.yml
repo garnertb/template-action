@@ -23,6 +23,7 @@ jobs:
          echo ::set-output name=repository::$(cut -d'/' -f2 <<<"$GITHUB_REPOSITORY")
       
       - uses: octokit/request-action@v2.x
+        name: Retrieve recently updated issues
         id: open-issues
         with:
           route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
@@ -30,6 +31,7 @@ jobs:
           repo: ${{ steps.get-repository.outputs.repository }}
       
       - uses: octokit/request-action@v2.x
+        name: Retrieve open pull requests
         id: open-prs
         with:
           route: /repos/{owner}/{repo}/pulls&per_page=100&state=all
