@@ -57,7 +57,9 @@ jobs:
             <br/><br/>
             ## Recent PRs
             <br/>
-            {{#if prs.length}}
+            {{#if prs.length > 0 }}
+              {{#each prs }}
+              {{#withinAWeek this.updated_at}}
               {{#each pr }}
               {{#withinAWeek this.updated_at}}
               - [ ] #{{this.number}}
