@@ -45,6 +45,6 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: template-action
           issue_number: ${{ github.event.issue.number }}
-          body: YEEEP #${{ steps.issue-body.outputs.payload }}
+          body: ${{ steps.issue-body.outputs.payload }}
         env:
           GITHUB_TOKEN: ${{ secrets.token }} 
