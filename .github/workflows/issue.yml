@@ -35,7 +35,7 @@ jobs:
             {{/each }}
       
       - uses: octokit/request-action@v2.x
-        id: open-issues
+        id: comment
         with:
           route: /repos/{owner}/{repo}/issues/{issue_number}/comments
           owner: ${{ github.repository_owner }}
