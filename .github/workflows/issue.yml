@@ -1,7 +1,10 @@
 name: 'Create Issue'
 on:
   workflow_dispatch:
+  issue_comment:
+    types: [created]
 jobs:
+  if: startsWith(github.event.comment.body, '/getRecentIssues')
   create-issue:
     runs-on: ubuntu-latest
     steps:
@@ -18,6 +21,7 @@ jobs:
           repo: handlebars-action
         env:
           GITHUB_TOKEN: ${{ secrets.token }} 
+      
       - uses: ./
         id: issue-body
         with:
@@ -29,9 +33,12 @@ jobs:
             - [ ] #{{this.number}}
             {{/withinAWeek}}
             {{/each }}
-      - uses: imjohnbo/issue-bot@v3
+      
+      - uses: octokit/request-action@v2.x
+        id: open-issues
         with:
-          body: ${{ steps.issue-body.outputs.payload }}
-          title: Issues from this week
-
-          
+          route: /repos/{owner}/{repo}/issues/{issue_number}/comments
+          owner: ${{ github.repository_owner }}
+          repo: template-action
+          issue_number: ${{ github.event.issue.number }}
+          body: ${{ steps.issue-body.outputs.body }}
