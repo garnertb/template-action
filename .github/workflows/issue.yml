@@ -4,7 +4,7 @@ on:
   issue_comment:
     types: [created]
 jobs:
-  create-issue:
+  add-comment:
     if: startsWith(github.event.comment.body, '/getRecentIssues')
     runs-on: ubuntu-latest
     steps:
@@ -16,7 +16,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: open-issues
         with:
-          route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
+          route: POST /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
           owner: garnertb
           repo: handlebars-action
         env:
