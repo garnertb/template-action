@@ -57,7 +57,7 @@ jobs:
             <br/><br/>
             ## Recent PRs
             <br/>
-            {{#if prs.count}}
+            {{#if prs.length}}
               {{#each pr }}
               {{#withinAWeek this.updated_at}}
               - [ ] #{{this.number}}
@@ -68,6 +68,7 @@ jobs:
             {{/if}}
       
       - uses: octokit/request-action@v2.x
+        name: Create comment
         id: comment
         with:
           route: POST /repos/{owner}/{repo}/issues/{issue_number}/comments
