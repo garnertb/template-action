@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   issue_comment:
     types: [created]
+env:
+  GITHUB_TOKEN: ${{ secrets.token }} 
+
 jobs:
   add-comment:
     if: startsWith(github.event.comment.body, '/getRecentIssues')
@@ -20,8 +23,6 @@ jobs:
           route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
           owner: garnertb
           repo: handlebars-action
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }} 
       
       - uses: octokit/request-action@v2.x
         id: open-prs
@@ -29,8 +30,6 @@ jobs:
           route: /repos/{owner}/{repo}/pulls
           owner: garnertb
           repo: handlebars-action
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }} 
       
       - uses: ./
         id: issue-body
@@ -69,5 +68,3 @@ jobs:
           repo: template-action
           issue_number: ${{ github.event.issue.number }}
           body: ${{ toJSON(steps.issue-body.outputs.payload) }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.token }} 
