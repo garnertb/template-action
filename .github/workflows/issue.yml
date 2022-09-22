@@ -45,7 +45,7 @@ jobs:
           prs: ${{ steps.open-prs.outputs.data }}
           template: |
             ## Recent issues
-            {{#if issues.length}}
+            {{#if issues.count}}
               {{#each issues }}
               {{#withinAWeek this.updated_at}}
               - [ ] #{{this.number}}
@@ -57,7 +57,7 @@ jobs:
             <br/><br/>
             ## Recent PRs
             <br/>
-            {{#if prs.length}}
+            {{#if prs.count}}
               {{#each pr }}
               {{#withinAWeek this.updated_at}}
               - [ ] #{{this.number}}
