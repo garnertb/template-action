@@ -54,7 +54,7 @@ jobs:
             {{else}}
               No recent issues 🎉
             {{/if}}
-            <br/>
+            <br/><br/>
             ## Recent PRs
             {{#if prs.length }}
               {{#each prs }}
