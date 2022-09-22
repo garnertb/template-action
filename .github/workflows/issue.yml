@@ -16,7 +16,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: open-issues
         with:
-          route: POST /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
+          route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
           owner: garnertb
           repo: handlebars-action
         env:
@@ -37,7 +37,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: comment
         with:
-          route: /repos/{owner}/{repo}/issues/{issue_number}/comments
+          route: POST /repos/{owner}/{repo}/issues/{issue_number}/comments
           owner: ${{ github.repository_owner }}
           repo: template-action
           issue_number: ${{ github.event.issue.number }}
