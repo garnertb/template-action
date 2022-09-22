@@ -40,11 +40,11 @@ This example creates a summary issue with all issues updated in the last week.
     issues: ${{ steps.open-issues.outputs.data }}
     template: |
       ## Open issues
-      {{#each issues }}
-      {{#withinAWeek this.updated_at}}
-      - [ ] #{{this.number}}
-      {{/withinAWeek}}
-      {{/each }}
+      {{ #each issues }}
+      {{ #withinAWeek this.updated_at }}
+      - [ ] #{{ this.number }}
+      {{ /withinAWeek }}
+      {{ /each }}
 
 # Create summary issue from template payload
 - uses: imjohnbo/issue-bot@v3
