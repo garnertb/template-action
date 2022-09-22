@@ -48,8 +48,9 @@ jobs:
             {{else}}
               No recent issues 🎉
             {{/if}}
+            <br/><br/>
+            ## Recent PRs
             <br/>
-            ## Recent PRs<br/>
             {{#if prs}}
               {{#each pr }}
               {{#withinAWeek this.updated_at}}
