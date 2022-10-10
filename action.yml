@@ -10,5 +10,5 @@ outputs:
       description: The rendered template.
 runs:
   using: 'node16'
-  main: 'main.js'
+  main: 'dist/index.js'
     
