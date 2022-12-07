@@ -29,7 +29,7 @@ This example creates a summary issue with all issues updated in the last week.
   with:
     route: /repos/:owner/:repo/issues?sort=updated&per_page=100&state=all
     owner: garnertb
-    repo: handlebars-action
+    repo: template-action
   env:
     GITHUB_TOKEN: ${{ secrets.token }} 
 
