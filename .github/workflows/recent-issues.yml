@@ -25,7 +25,7 @@ jobs:
       
       - name: Retrieve recently updated issues
         id: open-issues
-        runs: gh issue "/repos/${{env.owner}}/${{en.repo}}/issues?sort=updated&per_page=100&state=all"
+        run: gh issue "/repos/${{env.owner}}/${{en.repo}}/issues?sort=updated&per_page=100&state=all"
         env:
           owner: ${{ github.repository_owner }}
           repo: ${{ steps.get-repository.outputs.repository }}
