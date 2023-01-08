@@ -1,4 +1,4 @@
-name: 'Create Issue'
+name: Recent Issues
 on:
   workflow_dispatch:
   issue_comment:
