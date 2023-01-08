@@ -1,0 +1,78 @@
+name: 'Create Issue'
+on:
+  workflow_dispatch:
+  issue_comment:
+    types: [created]
+env:
+  GITHUB_TOKEN: ${{ secrets.token }} 
+
+# list -R --paginate --repo 
+
+jobs:
+  add-comment:
+    if: startsWith(github.event.comment.body, '/getRecentIssues')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+      - name: install dependencies
+        run: |
+          npm install
+      
+      - name: get repository
+        id: get-repository
+        run: |
+         echo ::set-output name=repository::$(cut -d'/' -f2 <<<"$GITHUB_REPOSITORY")
+      
+      - name: Retrieve recently updated issues
+        id: open-issues
+        runs: gh issue "/repos/${{env.owner}}/${{en.repo}}/issues?sort=updated&per_page=100&state=all"
+        env:
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.get-repository.outputs.repository }}
+      
+      - uses: octokit/request-action@v2.x
+        name: Retrieve open pull requests
+        id: open-prs
+        with:
+          route: /repos/{owner}/{repo}/pulls?sort=updated&per_page=100&state=all
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.get-repository.outputs.repository }}
+      
+      - uses: ./
+        id: issue-body
+        with:
+          issues: ${{ steps.open-issues.outputs.data }}
+          prs: ${{ steps.open-prs.outputs.data }}
+          template: |
+            ## Recent issues
+            {{#if issues.length }}
+              {{#each issues }}
+              {{#withinAWeek this.updated_at}}
+              - [ ] #{{this.number}}
+              {{/withinAWeek}}
+              {{/each }}
+            {{else}}
+              No recent issues 🎉
+            {{/if}}
+            <br/><br/>
+            ## Recent PRs
+            {{#if prs.length }}
+              {{#each prs }}
+              {{#withinAWeek this.updated_at}}
+              - [ ] #{{this.number}}
+              {{/withinAWeek}}
+              {{/each }}
+            {{else}}
+              No recent prs 🤔
+            {{/if}}
+      
+      - uses: octokit/request-action@v2.x
+        name: Create comment
+        id: comment
+        with:
+          route: POST /repos/{owner}/{repo}/issues/{issue_number}/comments
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.get-repository.outputs.repository }}
+          issue_number: ${{ github.event.issue.number }}
+          body: ${{ toJSON(steps.issue-body.outputs.payload) }}
