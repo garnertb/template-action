@@ -30,11 +30,10 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ steps.get-repository.outputs.repository }}
       
-      - uses: octokit/request-action@v2.x
-        name: Retrieve open pull requests
+      - name: Retrieve recently updated PRs
         id: open-prs
-        with:
-          route: /repos/{owner}/{repo}/pulls?sort=updated&per_page=100&state=all
+        run: gh api "/repos/${{env.owner}}/${{env.repo}}/pulls?sort=updated&per_page=100&state=all"
+        env:
           owner: ${{ github.repository_owner }}
           repo: ${{ steps.get-repository.outputs.repository }}
       
