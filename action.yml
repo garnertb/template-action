@@ -9,6 +9,6 @@ outputs:
     payload: 
       description: The rendered template.
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
     
