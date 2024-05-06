@@ -1,14 +1,14 @@
 {
-  "name": "action-docs",
-  "version": "1.0.0",
-  "description": "const fs = require('fs').promises; const jsyaml = require('js-yaml'); const handlebars = require('handlebars'); const path = require('path');",
+  "name": "template-action",
+  "version": "2.0.0",
+  "description": "Handlebars for GitHub Actions",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "ncc build --source-map --license LICENSE"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tyler Garner",
   "license": "ISC",
   "dependencies": {
     "@actions/core": "^1.9.1",
