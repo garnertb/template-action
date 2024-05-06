@@ -11,8 +11,8 @@ jobs:
     if: startsWith(github.event.comment.body, '/getRecentIssues')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
       - name: install dependencies
         run: |
           npm install

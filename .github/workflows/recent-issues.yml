@@ -13,12 +13,12 @@ jobs:
     if: startsWith(github.event.comment.body, '/recent-issues') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # add step that adds reaction to the comment
       - run: gh api -X POST /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions -F content=rocket
 
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
       - name: install dependencies
         run: |
           npm install
